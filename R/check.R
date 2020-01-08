@@ -69,6 +69,7 @@ check <- function(pkg = ".",
                   check_dir = tempdir(),
                   cleanup = TRUE,
                   vignettes = TRUE,
+                  lib_path = .libPaths(),
                   error_on = c("never", "error", "warning", "note")) {
   pkg <- as.package(pkg)
   withr::local_options(list(warn = 1))
@@ -201,7 +202,7 @@ check_built <- function(path = NULL, cran = TRUE,
   }
 
   withr::with_envvar(env_vars, action = "replace", {
-    rcmdcheck::rcmdcheck(path,
+    rcmdcheck::rcmdcheck(path,libpath=lib_path,
       quiet = quiet, args = args,
       check_dir = check_dir, error_on = error_on
     )
